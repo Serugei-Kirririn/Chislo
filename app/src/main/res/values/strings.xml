@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Chislo</string>
+    <string name="ahead">Перелёт!</string>
+    <string name="behind">Недолёт!</string>
+    <string name="hit">в точку!</string>
+    <string name="play_more">ещё</string>
+    <string name="input_value">Ввести</string>
+    <string name="try_to_guess">попробуйте</string>
+    <string name="error">неверно</string>
+</resources>
