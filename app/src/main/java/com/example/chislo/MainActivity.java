@@ -1,12 +1,13 @@
 package com.example.chislo;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
+
     TextView tvInfo;
     EditText etInput;
     Button bControl;
@@ -14,39 +15,56 @@ public class MainActivity extends Activity {
     int guess;
     boolean gameFinished;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        tvInfo = (TextView)findViewById(R.id.textView1);
-        etInput = (EditText)findViewById(R.id.editText1);
-        bControl = (Button)findViewById(R.id.button1);
-
-        guess = (int)(Math.random()*100);
+//задаем переменные
+        tvInfo = (TextView) findViewById(R.id.textView2);
+        etInput = (EditText) findViewById(R.id.editText);
+        bControl = (Button) findViewById(R.id.button2);
+//Задает разброс рандома
+        guess = (int) (Math.random() * 100);
         gameFinished = false;
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    public void onClick(View v){
+    // событе при нажатии
+    public void OnClick(View v){
+        //не позволяет закончиться игре
         if (!gameFinished){
-          Integer.parseInt(etInput.getText().toString());
-
+            int inp=Integer.parseInt(etInput.getText().toString());
+            //условие которое показывает перелет
+            if (inp > guess)
+                tvInfo.setText(getResources().getString(R.string.ahead));
+            //условие которое показывает недолет
+            if (inp < guess)
+                tvInfo.setText(getResources().getString(R.string.behind));
+            //условие которое показывает что попали в точку
+            if (inp == guess)
             {
+                //показывает что мы угадали с числом
                 tvInfo.setText(getResources().getString(R.string.hit));
+                //дает сыграть еще
                 bControl.setText(getResources().getString(R.string.play_more));
                 gameFinished = true;
             }
         }
         else
+        //занов запускает игра при нажатии "сыграть еще"
         {
-            guess = (int)(Math.random()*100);
+            // задает новый разброс
+            guess = (int)(Math.random()*200);
+            //обновляет значение кнопки
+            bControl.setText(getResources().getString(R.string.input_value));
+            //берет из strings начение input_value там условие нового уровня
+            tvInfo.setText(getResources().getString(R.string.try_to_guess));
+            gameFinished = false;
         }
         etInput.setText("");
+    }
+
+    public void onClick(View view) {
     }
 }
